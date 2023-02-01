@@ -65,7 +65,7 @@ namespace Kid_PalaceA2.Controllers
         public IActionResult Delete(int id)
         {
             var obj = _db.ProductCategory.Find(id);
-            if(obj != null)
+            if (obj != null)
             {
                 _db.ProductCategory.Remove(obj);
                 _db.SaveChanges();
@@ -91,6 +91,6 @@ namespace Kid_PalaceA2.Controllers
         //        throw;
         //    }
         //}
-     
+
     }
 }

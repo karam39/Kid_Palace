@@ -13,7 +13,7 @@ namespace Kid_PalaceA2.Models.ProductM
     public class ToyModel
     {
         [Key]
-        public  int Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public string ToyName { get; set; }
@@ -26,7 +26,7 @@ namespace Kid_PalaceA2.Models.ProductM
 
         public int Discount { get; set; }
 
-        public int SalePrice { get; set;}
+        public int SalePrice { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public string ToyImg { get; set; }

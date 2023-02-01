@@ -14,8 +14,8 @@ namespace Kid_PalaceA2.Models.ProductM
         [Required(ErrorMessage = "Required")]
         public string ProductCategoryName { get; set; }
 
-    
-      //  public List<ProductCatagory> lst = new List<ProductCatagory>();
+
+        //  public List<ProductCatagory> lst = new List<ProductCatagory>();
 
     }
 }

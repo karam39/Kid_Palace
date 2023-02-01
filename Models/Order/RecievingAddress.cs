@@ -19,7 +19,7 @@ namespace Kid_PalaceA2.Models
 
         [Required]
         public string Address { get; set; }
-      
+
         public string SpecialInstructions { get; set; }
 
         public int OrderId { get; set; }

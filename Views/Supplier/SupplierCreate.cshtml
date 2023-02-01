@@ -5,62 +5,59 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1  class="text-center">ProductQuantityCreate</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            `
+            <div class="login-form">
+                <form asp-action="AddSupplier" class="mt-5 border p-4 bg-light shadow">
+                    <h4 class="mb-5 text-secondary">Add New Supplier</h4>
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="SupplierName" class="control-label"></label>
+                            <input asp-for="SupplierName" class="form-control" />
+                            <span asp-validation-for="SupplierName" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                                <label asp-for="Date" class="control-label"></label>
+                                <input asp-for="Date" class="form-control" />
+                                <span asp-validation-for="Date" class="text-danger"></span>
+                            </div>*@
+                        <div class="form-group">
+                            <label asp-for="SupplierPhoneNo" class="control-label"></label>
+                            <input asp-for="SupplierPhoneNo" class="form-control" />
+                            <span asp-validation-for="SupplierPhoneNo" class="text-danger"></span>
+                        </div>
 
-<h4 class="text-center">PQuantity</h4>
-<hr />
-
-<div class="row">
-    <div class="col-md-4">
-
-    </div>
-    <div class="col-md-4 mt-5">
-        <form asp-action="AddProductQuantity">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="SupplierName" class="control-label"></label>
-                <input asp-for="SupplierName" class="form-control" />
-                <span asp-validation-for="SupplierName" class="text-danger"></span>
+                        <div class="mb-3 col-md-12">
+                            <label asp-for="Description" class="control-label"></label>
+                            <input asp-for="Description" class="form-control" />
+                            @*<span asp-validation-for="SpecialInstructions" class="text-danger"></span>*@
+                        </div>
+                        @*<div class="form-group">
+                                <label asp-for="ToyModelId" class="control-label"></label>
+                                <input asp-for="ToyModelId" class="form-control" />
+                                <span asp-validation-for="ToyModelId" class="text-danger"></span>
+                            </div>*@
+                        <div class="col-md-12">
+                            <button asp-controller="Supplier" asp-action="AddSupplier" type="submit" class="btn btn-primary float-end">Submit</button>
+                        </div>
+                        @*<div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>*@
+                        <div>
+                            <a asp-action="showSupplierDetail">Back to List</a>
+                        </div>
+                    </div>
+                </form>
             </div>
-            @*<div class="form-group">
-            <label asp-for="Date" class="control-label"></label>
-            <input asp-for="Date" class="form-control" />
-            <span asp-validation-for="Date" class="text-danger"></span>
-        </div>*@
-            <div class="form-group">
-                <label asp-for="SupplierPhoneNo" class="control-label"></label>
-                <input asp-for="SupplierPhoneNo" class="form-control" />
-                <span asp-validation-for="SupplierPhoneNo" class="text-danger"></span>
-            </div>
-            
-            <div class="mb-3 col-md-12">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                @*<span asp-validation-for="SpecialInstructions" class="text-danger"></span>*@
-            </div>
-            @*<div class="form-group">
-            <label asp-for="ToyModelId" class="control-label"></label>
-            <input asp-for="ToyModelId" class="form-control" />
-            <span asp-validation-for="ToyModelId" class="text-danger"></span>
-        </div>*@
-            <div class="col-md-12">
-                <button asp-controller="Supplier" asp-action="AddSupplier" type="submit" class="btn btn-primary float-end">Submit</button>
-            </div>
-            @*<div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>*@
-        </form>
-
-    </div>
-    <div class="col-md-4">
+        </div>
 
     </div>
 </div>
 
-<div>
-    <a asp-action="showProductQuantity">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

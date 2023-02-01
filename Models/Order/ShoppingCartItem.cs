@@ -14,7 +14,7 @@ namespace Kid_PalaceA2.Models
         public int Id { get; set; }
 
         public ToyModel ToyModel { get; set; }
-        public int Quantity { get; set; }     
+        public int Quantity { get; set; }
         public string ShoppingCartId { get; set; }
     }
 }

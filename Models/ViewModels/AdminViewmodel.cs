@@ -13,6 +13,6 @@ namespace Kid_PalaceA2.Models.ViewModels
 
         public int Dilevery { get; set; }
 
-        public List<Order> PendingOrders{get; set;}
+        public List<Order> PendingOrders { get; set; }
     }
 }
