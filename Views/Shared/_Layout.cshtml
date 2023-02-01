@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kid_Palace</title>
+    @*<link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="~/css/home.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/1deb204bbf.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+
+</head>
+<body>
+    <header class="header mb-3">
+        <!--<div id="top">
+            <div class="container text-right">
+                <partial name="_LoginPartial" />
+            </div>-->
+        <!-- *** TOP BAR END ***-->
+        <!--</div>-->
+        
+        <div id='outer'>
+            <div id='logo' class='container'>
+                <img class="col-md-4 img-fluid web-logo order-0" src="~/img/toy.png" />
+                <div>
+                    @*<input class='col-md-6 col-10 order-1' type='text' placeholder='Search ' />
+            <FaSearch class='icon' />*@
+                    <form asp-area="" asp-controller="Product" asp-action="Products">
+
+                        <!--<input class='col-md-6 col-10 order-1' type="text" name="SearchString" />-->
+                        @*<FaSearch class='icon' />*@
+                        @*<input type="submit" value="Filter" />*@
+                        <!--<button id="search-button" type="submit" class="btn btn-primary " style="background-color: transparent;">
+                            <i class="fas fa-search" style="color: black; outline: none; height:20px; width:20px;  "></i>
+                        </button>-->
+
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search Product" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary bg-success start-button"  type="button">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <a asp-area="" asp-controller="Orders" asp-action="ShoppingCart" class="cart position-relative d-inline-flex" aria-label="View your shopping cart">
+                    <img src="~/img/Cart.png" class='img-fluid cart-img mt-5 order-0' />
+                    <span class="cart-basket d-flex align-items-center justify-content-center">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </span>
+                </a>
+                @*<a asp-area="" asp-controller="Orders" asp-action="ShoppingCart">
+                    <img src="~/img/Cart.png" class='img-fluid cart-img mt-5 order-0' />
+                    <span class="cart-basket d-flex align-items-center justify-content-center">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </span>
+                </a>*@
+
+            </div>
+            <!-- Example single danger button -->
+
+        </div>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+            <div class="d-inline-flex align-items-center">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    string b = User.Identity.Name.ToString();
+                    if ((b.Split('@')[0]) == "Admin786")
+                    {
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AdminDashboard">Administration</a>}
+                }
+            </div>
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <strong>Kid_Palace 🚵 </strong></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 fw-bolder mb-lg-0 ">
+
+                        <li class="nav-item px-4">
+                            <a exact activeClass='page-active' class="nav-link active" aria-current="page"
+                               asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item px-4">
+                            <a exact activeClass='page-active' class="nav-link active" aria-current="page"
+                               asp-area="" asp-controller="Product" asp-action="Products">Products</a>
+                        </li>
+
+
+                        <li class="nav-item px-4">
+                            <a exact activeClass='page-active' class="nav-link" style="color: white;"
+                               asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+                        <li class="nav-item px-4">
+                            <a exact activeClass='page-active' class="nav-link" style="color: white;"
+                               asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="btn-group ">
+                        <button style="border-color: green; outline: none;" type="button" class="btn dropdown-toggle fw-bolder text-white" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Account
+                        </button>
+                        <ul class="dropdown-menu bg-success">
+
+                            <partial name="_LoginPartial" />
+
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <footer class="border-top footer text-muted">
+        <div class='container-fluid bg-success'>
+            <div class='row p-3'>
+                <div class='col-10 col-md-5 col-lg-3  pb-5 mx-auto'>
+
+                    <a class="navbar-brand text-white " href="/"> <strong>Kid_Palace 🚵 </strong></a>
+                    <p class='text-white small pt-3 '>
+                        Hey! we are a team of developing and creating high quality and peak
+                        standard products.
+                    </p>
+                    <div class='d-flex flex-column text-white justify-content-center'>
+
+                        <p class='align-self-center '>
+                            <FaPhoneVolume class='fs-5 ' /> Need Help
+                        </p>
+                        <h3 class='align-self-center'>(+92) 1254879</h3>
+                    </div>
+                    <div style="cursor: pointer;" class=' Footer-Icon text-white d-flex pt-3 justify-content-evenly'>
+                        <i style="font-size: 30px;" class="fa-brands fa-facebook-f"></i>
+                        <i style="font-size: 30px;" class="fa-brands fa-instagram"></i>
+                        <i style="font-size: 30px;" class="fa-brands fa-twitter"></i>
+                        <i style="font-size: 30px;" class="fa-brands fa-youtube-square"></i>
+                    </div>
+                </div>
+                <div class='col-4 col-md-2 text-white p-2 mx-auto'>
+                    <h6>Information</h6>
+                    <hr />
+                    <ul class="list-group small">
+                        <li>Deleivery</li>
+                        <li>About Us</li>
+                        <li>Contact Us</li>
+                        <li>Stores</li>
+                        <li>Location</li>
+                    </ul>
+                </div>
+                <div class='col-4 col-md-2 text-white p-2 mx-auto'>
+                    <h6>Custom Links</h6>
+                    <hr />
+                    <ul class="list-group small ">
+                        <li>Legal Notice</li>
+                        <li>Prices Drop</li>
+                        <li>New Product</li>
+                        <li>Sales</li>
+                        <li>Login</li>
+                        <li>My Account</li>
+                    </ul>
+
+                </div>
+                <div class='col-10 col-md-6 col-lg-4 text-white p-2 mx-auto'>
+                    <h6>Newsletter</h6>
+                    <hr />
+                    <p class="small pt-2">
+                        You may unsubscribe at any moment. For that purpose please visit our contact page.
+                    </p>
+
+                    <div class="input-group mt-5">
+                        <input style="border-radius:0px" type="text" class="form-control" placeholder="your email address"
+                               aria-label="Recipient's username" aria-describedby="button-addon2" />
+                        <button type="button" class="btn btn-dark">Login</button>
+                    </div>
+                    <img class='img-fluid p-3 download-img' width="200" style="border-radius:30px; cursor: pointer;"
+                         src="~/img/appstore.jpg" />
+                    <img class='img-fluid p-3 download-img ' width="200" style="border-radius:30px;cursor:pointer"
+                         src="~/img/google.png" />
+
+
+                </div>
+
+            </div>
+            <div class='row '>
+                <div class='col-10 col-md-5 col-lg-4  pb-5 text-white order-1 mx-auto d-flex '>
+                    <p class='small para text-center'>
+                        Copyright 2022 <strong> Toy Blast 🚵.</strong> All rights reserved. Powerd by ElevensGroup.
+                    </p>
+
+
+                </div>
+                <div class='col-10 col-md-4 col-lg-4  pb-5 text-white order-0 mx-auto d-flex justify-content-center'>
+                    <img src="~/img/jazz.jpg" class=" payment-img " />
+                    <img src="~/img/ubl.jpg" class=" payment-img " />
+                    <img src="~/img/hbl.png" class=" payment-img " />
+                    <img src="~/img/master.png" class=" payment-img " />
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </footer>
+    @*<script src="~/lib/jquery/jquery.min.js"></script>
+
+        <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+
+        <script src="~/lib/jquery.cookie/jquery.cookie.js"></script>
+
+        <script src="~/lib/owl.carousel/owl.carousel.min.js"></script>
+
+        <script src="~/lib/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
+
+        <script src="~/js/front.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @RenderSection("Scripts", required: false)*@
+    @*<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="~/js/site.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

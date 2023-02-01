@@ -1,0 +1,122 @@
+﻿@*@model List<OrderItem>*@
+@using Kid_PalaceA2.Models.ViewModels
+@model Orderviewdata
+
+@{ if(User.Identity.IsAuthenticated)
+    {
+        string b = User.Identity.Name.ToString();
+        if ((b.Split('@')[0]) == "Admin786")
+        {
+            Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+}
+
+            <div id="all">
+                <div id="content">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-lg-3">
+                                <!--
+                                *** CUSTOMER MENU ***
+                                _________________________________________________________
+                                -->
+                                <div class="card sidebar-menu">
+                                    <div class="card-header">
+                                        <h3 class="h4 card-title">Customer section</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="nav nav-pills flex-column"><a asp-area="" asp-controller="Orders" asp-action="Index" class="nav-link active">@*<i class="fa fa-list"></i> My orders</a><a asp-area="" asp-controller="Orders" asp-action="Orderview" class="nav-link">*@<i class="fa fa-user"></i> View Orders</a><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></ul>
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-3-->
+                                <!-- *** CUSTOMER MENU END ***-->
+
+                            </div>
+                            <div id="customer-order" class="col-lg-9" style="background-color:white">
+                                <div class="box">
+                                    @foreach (var item in Model.Orderr)
+                                    {
+                                        <h1>Order @item.OrderId</h1>
+
+                                        <p class="lead">
+                                            Order @item.OrderId was placed on
+
+                                            <strong>@Model.orderdate</strong>
+                                            and is currently <strong>Being prepared</strong>.
+                                        </p>
+                                        <p class="text-muted">If you have any questions, please feel free to <a asp-area="" asp-controller="Home" asp-action="Contact">contact us</a>, our customer service center is working for you 24/7.</p>
+                                        <hr>
+                                        break;
+                                    }
+                                    <div class="table-responsive mb-4" style="background-color:white">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Name</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit price</th>
+                                                    @*<th>Discount</th>*@
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Orderr)
+                                                {
+
+                                                    <tr>
+                                                        <td><a><img src="@("~/img/" + item.ToyImg)" asp-append-version="true" style="width: 100px; height: 100px;"></a></td>
+                                                        <td><a>@item.ToyName</a></td>
+                                                        <td>@item.Quantity</td>
+                                                        <td>@item.Price</td>
+                                                        @*<td>$0.00</td>*@
+                                                        @*<td> @Model.Select(m => m.Price * m.Amount).Sum().ToString("c")</td>*@
+                                                        <td>
+                                                            @{var i = (@item.Price * @item.Quantity).ToString();}
+                                                            @i
+                                                        </td>
+
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="4" class="text-right">Total</th>
+                                                    <th>@Model.Orderr.Select(m => m.Price * m.Quantity).Sum().ToString() <span class="text-black-50"> Rs</span></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <!-- /.table-responsive-->
+                                    <div class="row addresses">
+                                        @foreach (var item in Model.Address)
+                                        {
+                                            <div class="col-lg-6">
+                                                <h2>Invoice address</h2>
+                                                <p>
+                                                    Arshad Toy Center<br> Mumtazabad Market
+
+                                                    <br>A Block<br>Multan<br>Pakistan
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <h2>Shipping address</h2>
+                                                <p>@item.CustomerName<br>@item.Address<br>@item.PhoneNo<br></p>
+                                                <p>@item.SpecialInstructions</p>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

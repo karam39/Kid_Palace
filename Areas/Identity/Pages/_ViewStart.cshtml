@@ -1,0 +1,20 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    string b = User.Identity.Name.ToString();
+
+    if ((b.Split('@')[0]) == "Admin786")
+    {
+        Layout = "/Views/Shared/_AdminLayout.cshtml";
+    }
+    else
+    {
+
+        Layout = "/Views/Shared/_Layout.cshtml";
+
+
+    }
+}
+else
+{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}

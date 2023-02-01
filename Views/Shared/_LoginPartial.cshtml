@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    string b = User.Identity.Name.ToString();
+
+    if ((b.Split('@')[0]) == "Admin786")
+    {
+<form class="btn nav-item text-white" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="get">
+    <button type="submit" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+        <i class="fas fa-power-off me-2"></i>Logout
+    </button>
+</form>
+    }
+    else
+    {        
+<li>
+    @*<a href="D:\KaramPersonal\GitHubRepos\KidPalace\KidpalaceProject1122\Kid-PalaceA2\Views\Shared\_LoginPartial.cshtml">D:\KaramPersonal\GitHubRepos\KidPalace\KidpalaceProject1122\Kid-PalaceA2\Views\Shared\_LoginPartial.cshtml</a>*@
+    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name.Split('@')[0]</a>
+</li>
+        <li><a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index">Orders</a></li>
+
+        <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"> Logout</a></li>
+    }
+
+}
+else
+{
+    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+}
+
+
+

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Kid_PalaceA2.Models.ProductM.ProductCatagory>
+
+@{
+    ViewData["Title"] = "ShowProductCategoryList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="text-center">
+                <h2>ProductCategory summary</h2>
+            </div>
+            <br />
+            <div class="table-responsive" style="background-color:white">
+                <table id="example" class="ui celled table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductCategoryId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductCategoryName)
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCategoryId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductCategoryName)
+                                </td>
+                                <td>
+                                    <a>  @Html.ActionLink("Update", "ProductCategoryCreate", new { id = item.ProductCategoryId, item.ProductCategoryName, item.ProductCategoryId }, new { @class = "btn btn-primary bi bi-pencil-square" }) </a>
+
+
+                                    <a>   @Html.ActionLink("Delete", "Delete", new { id = item.ProductCategoryId }, new { @class = "btn btn-danger text-white bi bi-trash", onclick = "return confirm('Do you really want to delete this report')" })</a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+</div>

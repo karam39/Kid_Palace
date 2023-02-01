@@ -1,0 +1,149 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Kid_PalaceA2.Models.ViewModels
+@model AdminViewmodel
+@{ 
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div id="page-content-wrapper">
+
+
+    <div class="container-fluid px-4">
+        <div class="row g-3 my-2">
+            <div class="col-md-4">
+                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">@Model.totalproducts</h3>
+                        <p class="fs-5">Products</p>
+                    </div>
+                    <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">@Model.Sales</h3>
+                        <p class="fs-5">Sales</p>
+                    </div>
+                    <i class="fas fa-hand-holding-usd fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                        <h3 class="fs-2">@Model.Dilevery</h3>
+                        <p class="fs-5">Delivery</p>
+                    </div>
+                    <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row my-5">
+            <h3 class="fs-4 mb-3">Pending Orders</h3>
+            <div id="customer-orders" class="col-lg-12">
+                <div class="box">
+                    <h1 class="text-center">All orders</h1>
+                    <hr>
+                    <div class="table-responsive" style="background-color:white">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>User</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>ChangeSatus</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.PendingOrders)
+                                {
+                                    <tr>
+                                        <td>@order.Id</td>
+                                        <td>@order.Date</td>
+                                        <td>@order.Email</td>
+                                        @*<td>22/06/2013</td>*@
+                                        <td> @order.OrderItems.Select(m => m.Price * m.Quantity).Sum().ToString()</td>
+                                        <td>
+                                            @if (order.Orderstatus == "Cancelled")
+                                            {
+                                                <h2 class="badge badge-danger" style="background-color :red">@order.Orderstatus </h2> }
+                                            else if (order.Orderstatus == "Completed")
+                                            {
+                                                <h2 class="badge badge-success" style="background-color :forestgreen">@order.Orderstatus</h2> }
+                                            else if (order.Orderstatus == "Processing")
+                                            {
+                                                <h2 class="badge badge-info" style="background-color :deepskyblue">@order.Orderstatus</h2>}
+                                            else if (order.Orderstatus == "Pending")
+                                            {
+                                                <h2 class="badge badge-dark" style="background-color :grey">@order.Orderstatus</h2>}
+
+                                        </td>
+
+                                        <td>
+                                            @{Order obj = new Order();
+                                                List<Order>
+                                                    Orderstatuslist = new List<Order>
+                                                        () {
+                                new Order() { OrderstatusID = 1, Orderstatus = "Pending"} ,
+                                new Order() { OrderstatusID = 2, Orderstatus = "Processing"} ,
+                                new Order() { OrderstatusID = 3, Orderstatus = "Completed"} ,
+                                new Order() { OrderstatusID = 4, Orderstatus = "Cancelled"}
+}; @*<select size="1" id="row-1-office" name="row-1-office">
+                                        @foreach (var ord in Orderstatuslist)
+                                        {
+                                    <option>
+                                        <a asp-route-id="@ord.OrderstatusID" asp-controller="OrdersContz" asp-action="CancelOrder">@ord.Orderstatus</a>
+                                    </option>}
+                                    </select>*@ @*<div class="w3-dropdown-hover">
+                        <button class="w3-button w3-black">Hover Over Me!</button>
+                        <div class="w3-dropdown-content w3-bar-block w3-border">
+                            @foreach (var ord in Orderstatuslist)
+                            {
+    <a asp-route-id="@order.Id" asp-route-status="@ord.OrderstatusID" asp-controller="Orders" asp-action="CancelOrder">@ord.Orderstatus</a>}
+                        </div>
+                    </div>*@
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Order Status
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            @foreach (var ord in Orderstatuslist)
+                                            {
+
+                                                <li>
+                                                    <a class="dropdown-item" asp-route-id="@order.Id" asp-route-status="@ord.OrderstatusID" asp-controller="Orders" asp-action="Changeorderstatusfordashboard">@ord.Orderstatus</a>
+                                                </li>
+                                            }
+
+                                        </ul>
+                                    </div> }
+
+
+                                        </td>
+                                        <td><a asp-route-id="@order.Id" asp-controller="Orders" asp-action="Orderview" class="btn btn-primary btn-sm">View</a></td>
+
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- /#page-content-wrapper -->

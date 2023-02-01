@@ -1,0 +1,269 @@
+﻿@model List<Order>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@*@{
+        ViewData["Title"] = "All orders";
+    }
+
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <p>
+                <h4>List of all your orders</h4>
+            </p>
+
+            <table class="table">
+                <thead >
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                    <tr>
+                        <td class="align-middle">@order.Id</td>
+                        <td class="align-middle">
+                            <ul style="list-style-type:none">
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li>
+                                        <div class="alert alert-info" role="alert">
+                                            <span class="badge bg-success">@item.Amount</span> [@item.Price.ToString("c")] - @item.ToyName
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="align-middle">
+                            @order.OrderItems.Select(m => m.Price * m.Amount).Sum().ToString("c")
+                        </td>
+
+                        <td class="align-middle"> @User.Identity.Name </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>*@
+@if (SignInManager.IsSignedIn(User))
+{
+    string b = User.Identity.Name.ToString();
+
+    if ((b.Split('@')[0]) == "Admin786")
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-lg-12">-->
+                    <!-- breadcrumb-->
+                    <!--<nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">My orders</li>
+                        </ol>
+                    </nav>
+                </div>-->
+
+                <div id="customer-orders" class="col-lg-12">
+                    <div class="box">
+                        <h1 class="text-center">All orders</h1>
+                        <hr>
+                        <div class="table-responsive" style="background-color:white">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>User</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>ChangeSatus</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model)
+                                    {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Date</td>
+                    <td>@order.Email</td>
+                    @*<td>22/06/2013</td>*@
+                    <td> @order.OrderItems.Select(m => m.Price * m.Quantity).Sum().ToString()</td>
+                    <td>
+                        @if (order.Orderstatus == "Cancelled")
+                        {
+                    <h2 class="badge badge-danger" style="background-color :red">@order.Orderstatus </h2> }
+                        else if (order.Orderstatus == "Completed")
+                        {
+                    <h2 class="badge badge-success" style="background-color :forestgreen">@order.Orderstatus</h2> }
+                        else if (order.Orderstatus == "Processing")
+                        {
+                    <h2 class="badge badge-info" style="background-color :deepskyblue">@order.Orderstatus</h2>}
+                        else if (order.Orderstatus == "Pending")
+                        {
+                    <h2 class="badge badge-dark" style="background-color :grey">@order.Orderstatus</h2>
+
+                        }
+
+                    </td>
+
+                    <td>
+                        @{Order obj = new Order();
+                            List<Order>
+                                Orderstatuslist = new List<Order>
+                                    () {
+                                new Order() { OrderstatusID = 1, Orderstatus = "Pending"} ,
+                                new Order() { OrderstatusID = 2, Orderstatus = "Processing"} ,
+                                new Order() { OrderstatusID = 3, Orderstatus = "Completed"} ,
+                                new Order() { OrderstatusID = 4, Orderstatus = "Cancelled"}
+                        }; @*<select size="1" id="row-1-office" name="row-1-office">
+                                    @foreach (var ord in Orderstatuslist)
+                                    {
+                                <option>
+                                    <a asp-route-id="@ord.OrderstatusID" asp-controller="OrdersContz" asp-action="CancelOrder">@ord.Orderstatus</a>
+                                </option>}
+                                </select>*@ @*<div class="w3-dropdown-hover">
+                                                                        <button class="w3-button w3-black">Hover Over Me!</button>
+                                                                        <div class="w3-dropdown-content w3-bar-block w3-border">
+                                                                            @foreach (var ord in Orderstatuslist)
+                                                                            {
+                                                    <a asp-route-id="@order.Id" asp-route-status="@ord.OrderstatusID" asp-controller="Orders" asp-action="CancelOrder">@ord.Orderstatus</a>}
+                                                                        </div>
+                                                                    </div>*@
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Order Status
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                @foreach (var ord in Orderstatuslist)
+                                {
+
+                        <li>
+                            <a class="dropdown-item" asp-route-id="@order.Id" asp-route-status="@ord.OrderstatusID" asp-controller="Orders" asp-action="CancelOrder">@ord.Orderstatus</a>
+                        </li>}
+
+                            </ul>
+                        </div> 
+                    }
+
+
+                    </td>
+                    <td><a asp-route-id="@order.Id" asp-controller="Orders" asp-action="Orderview" class="btn btn-primary btn-sm">View</a></td>
+
+
+                </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> }
+                            else
+                            {
+                                Layout = "~/Views/Shared/_Layout.cshtml";
+
+<div id="all">
+    <div id="content">
+        <div class="container">
+            <div class="row">
+                <!--<div class="col-lg-12">-->
+                    <!-- breadcrumb-->
+                    <!--<nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li aria-current="page" class="breadcrumb-item active">My orders</li>
+                        </ol>
+                    </nav>
+                </div>-->
+                <div class="col-lg-3">
+                    <!--
+                    *** CUSTOMER MENU ***
+                    _________________________________________________________  -->
+
+
+                    <div class="card sidebar-menu">
+                        <div class="card-header">
+                            <h3 class="h4 card-title">Customer section</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="nav nav-pills flex-column"><a asp-area="" asp-controller="Orders" asp-action="Index" class="nav-link active"><i class="fa fa-list"></i> My orders</a>@*<a asp-area="" asp-controller="Orders" asp-action="Orderview" class="nav-link"><i class="fa fa-user"></i> View Orders</a>*@<a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action(" Index", "Home", new { area = "" })" class="nav-link"><i class="fa fa-sign-out"></i> Logout</a></ul>
+                        </div>
+                    </div> <!-- /.col-lg-3--> <!-- *** CUSTOMER MENU END ***-->
+
+                </div>
+
+                <div id="customer-orders" class="col-lg-9">
+                    <div class="box">
+                        <h1>My orders</h1>
+                        <p class="lead">Your orders on one place.</p>
+                        <p class="text-muted">If you have any questions, please feel free to <a  asp-area="" asp-controller="Home" asp-action="Contact">contact us</a>, our customer service center is working for you 24/7.</p>
+                        <hr>
+                        <div class="table-responsive" style="background-color:white">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>CancelOrder</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model)
+                                    {
+                <tr>
+                    <th>@order.Id</th>
+                    <td>@order.Date</td>
+                    <td> @order.OrderItems.Select(m => m.Price * m.Quantity).Sum().ToString()</td>
+                    <td>
+                        @if (order.Orderstatus == "Cancelled")
+                        {
+                    <h2 class="badge badge-danger" style="background-color :red">@order.Orderstatus</h2> }
+                else if (order.Orderstatus == "Completed")
+                {
+                    <h2 class="badge badge-success" style="background-color :forestgreen">@order.Orderstatus</h2> }
+                else if (order.Orderstatus == "Processing")
+                {
+                    <h2 class="badge badge-info" style="background-color :deepskyblue">@order.Orderstatus</h2>}
+                else if (order.Orderstatus == "Pending")
+                {
+                    <h2 class="badge badge-dark" style="background-color :grey">@order.Orderstatus</h2>}
+
+                       
+
+                    </td>
+
+                    @if (order.Orderstatus == "Pending")
+                    {
+<td> <a class="btn btn-danger" asp-controller="Orders" asp-action="CancelOrder" asp-route-id="@order.Id"><i class="bi bi-x-square-fill"></i>Cancell Order</a></td> }
+                        else
+                        {
+<td> <a class="btn btn-danger disabled" asp-controller="Orders" asp-action="CancelOrder" asp-route-id="@order.Id"><i class="bi bi-x-square-fill"></i>Cancell Order</a></td>                        }
+                    <td><a asp-route-id="@order.Id" asp-controller="Orders" asp-action="Orderview" class="btn btn-primary btn-sm">View</a></td>
+
+
+                </tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}
+}

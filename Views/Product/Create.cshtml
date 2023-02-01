@@ -1,0 +1,129 @@
+﻿@model Kid_PalaceA2.Models.ProductM.ToyModel
+@*@{
+        ViewData["Title"] = "Create";
+    }*@
+
+
+@*<legend>PRODUCTS</legend>*@
+<!-- Text input-->
+<!--<h4>ToyModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddToy" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <itemgroup>
+                <Folder Include="wwwroot/images\"/>
+            </itemgroup>
+            <div class="form-group">
+                <input type="hidden" asp-for="Id" />
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" accept="images/*" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ToyName" class="control-label"></label>
+                <input asp-for="ToyName" class="form-control" />
+                <span asp-validation-for="ToyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToyPrice" class="control-label"></label>
+                <input asp-for="ToyPrice" class="form-control" />
+                <span asp-validation-for="ToyPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="AddToy" class="btn btn-primary" />
+                <a asp-area="" asp-controller="Product" asp-action="ShowToys" class="btn btn-danger">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+
+</div>-->
+@*<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a New Toy</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="AddToy" enctype="multipart/form-data">*@
+
+
+@{
+    ViewData["Title"] = "Add a new Toy";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="signup-form">
+                <form asp-action="AddToy" class="mt-5 border p-4 bg-light shadow" enctype="multipart/form-data">
+                    <h4 class="mb-5 text-secondary">Add a new Product</h4>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <itemgroup>
+                        <Folder Include="wwwroot/img\" />
+                    </itemgroup>
+
+                    <div class="form-group">
+                        <input type="hidden" asp-for="Id" />
+                        <label asp-for="ImageFile" class="control-label"></label>
+                        @*<img class="forkawesome-pencil-square" src="@("~/images/"+Model.ToyImg)" asp-append-version="true" style="max-width: 150px" />*@
+                        <input asp-for="ImageFile" value="@Model.ToyImg" class="form-control form-control-lg" accept="img/*" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PCategoryName" class="control-label"></label>
+                        <select asp-for="ProdCategoryid" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" asp-items="@(new SelectList(ViewBag.Plist,"ProductCategoryId","ProductCategoryName"))" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> Product</label>
+                        <select asp-for="SupplierId" class="form-select form-select-lg " aria-label=".form-select-lg example" asp-items="@(new SelectList(ViewBag.Slist,"Id","SupplierName"))" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ToyName" class="control-label"></label>
+                        <input asp-for="ToyName" class="form-control" required />
+                        <span asp-validation-for="ToyName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PrdQuantity" class="control-label"></label>
+                        <input asp-for="PrdQuantity" class="form-control" required />
+                        <span asp-validation-for="PrdQuantity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ToyPrice" class="control-label"></label>
+                        <input asp-for="ToyPrice" class="form-control" required />
+                        <span asp-validation-for="ToyPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label @*asp-for="Discount"*@ class="control-label">Discount%</label>
+                        <input asp-for="Discount" class="form-control" required />
+                        <span asp-validation-for="Discount" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="ShowToys">Show All</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

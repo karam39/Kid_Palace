@@ -1,0 +1,60 @@
+﻿@model RecievingAddress
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="row align-items-start">
+
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+
+            <div class="col-md-12 mb-4">
+                <div class="card mb-4">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0 text-center">Biling details</h5>
+                    </div>
+                    <div class="card-body">
+
+                        <form>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="row">
+
+                                <input type="hidden" asp-for="Id" />
+                                <div class="mb-3 col-md-12">
+                                    <label asp-for="CustomerName" class="control-label"></label>
+                                    <input asp-for="CustomerName" class="form-control" required />
+                                    <span asp-validation-for="CustomerName" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <input asp-for="Address" class="form-control" required />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label asp-for="PhoneNo" class="control-label"></label>
+                                    <input asp-for="PhoneNo" class="form-control" required />
+                                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label asp-for="SpecialInstructions" class="control-label"></label>
+                                    <input asp-for="SpecialInstructions" class="form-control" />
+                                    @*<span asp-validation-for="SpecialInstructions" class="text-danger"></span>*@
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary" asp-controller="Orders" asp-action="CompleteOrder">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+    </div>
+</div>
+
+

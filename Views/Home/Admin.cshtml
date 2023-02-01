@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div id="mySidenav" style="width:250px" class="sidenav">
+    @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>*@
+
+
+    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Create">AddToys</a>
+
+
+    <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Showtoys">ShowToys</a>
+
+    <a class="nav-link" asp-area="" asp-controller="ProductCategory" asp-action="ProductCategoryCreate">AddCategory</a>
+
+
+    <a class="nav-link" asp-area="" asp-controller="ProductCategory" asp-action="ShowProductCategoryList">ShowCategory</a>
+
+
+</div>
+<div id="mySidenav" style="height: 15px; width: 100%; right: 0px;" class="float-right sidenav">
+
+</div>
+
+<div id="mySidenav">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+    }
+</script>

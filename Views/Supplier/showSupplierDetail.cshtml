@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Kid_PalaceA2.Models.Supplier.SupplierDetail>
+
+@{
+    ViewData["Title"] = "showSupplierDetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>showSupplierDetail</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierPhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierPhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+          
+            <td>
+                <a>  @Html.ActionLink("Update", "SupplierCreate", new { id = item.Id, item.SupplierName, item.SupplierPhoneNo,item.Description }, new { @class = "btn btn-primary bi bi-pencil-square" }) </a>
+
+
+                <a>   @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger text-white bi bi-trash", onclick = "return confirm('Do you really want to delete this report')" })</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

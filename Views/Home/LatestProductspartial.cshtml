@@ -1,0 +1,164 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@using Kid_PalaceA2.Models.ViewModels
+@model HomeViewdata
+<div class="col-md-9 mt-3">
+    <h1>Latest Arrival Toys</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model.LatestProduct)
+        {
+            <div class="col-md-3 col-6 col-5 mx-auto product-img">
+                <div class="card animate" style="border-radius: 0px;">
+
+                    <img src="@("~/img/" + item.ToyImg)" asp-append-version="true" class="card-img-top">
+                    @if (item.Discount > 0)
+                    {<p style="font-size:small;width:fit-content;height:30px;position:relative;color:white;background-color:red;border:dashed">@Html.DisplayFor(modelItem => item.Discount)% off &nbsp</p>
+
+                }
+                else
+                {
+                }
+
+                    <h5 class="card-title" style="margin-left:10px">
+
+                        @if (item.Discount > 0)
+                        {@Html.DisplayFor(modelItem => item.ToyName)
+                        <del><p style="font-size:small;" class="disabled"> Rs @Html.DisplayFor(modelItem => item.ToyPrice) </p></del>
+                        <p style="font-size:small"><strong>Rs @Html.DisplayFor(modelItem => item.SalePrice) </strong> AfterDiscount</p>
+
+                    }
+                    else
+                    {
+                        <p style="padding:16px"> </p>
+                        @Html.DisplayFor(modelItem => item.ToyName)
+
+                        <p style="padding:10px"><strong>Rs @Html.DisplayFor(modelItem => item.SalePrice)  </strong> </p>
+
+                    }
+                    </h5>
+
+
+
+                    <a type="button" class="btn btn-warning" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">Add to Cart</a>
+                </div>
+            </div>
+
+        }
+
+
+        @*<div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/car 1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/boat 2.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/helicopter 1.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/piano 1.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/bear 3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/doll.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/service-2.webp" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/aeroplane 2.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/car 4.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/boat 11.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-3 col-5 mx-auto">
+            <div class="card h-100" style="border-radius: 0px;">
+                <img src="img/car 3.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+
+                </div>
+                <button type="button" class="btn btn-warning">Add to Cart</button>
+            </div>
+        </div>*@
+    </div>
+
+</div>
