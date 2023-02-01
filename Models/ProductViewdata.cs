@@ -15,6 +15,6 @@ namespace Kid_PalaceA2.Models
 
         public int prdCatId { get; set; }
 
-      //  public List<ToyModel> LatestProduct { get; set; }
+        //  public List<ToyModel> LatestProduct { get; set; }
     }
 }

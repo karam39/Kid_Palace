@@ -22,7 +22,7 @@ namespace Kid_PalaceA2.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         public HomeController(ILogger<HomeController> logger, UserManager<IdentityUser> userManager, AppDbContext db, IWebHostEnvironment hostEnviroment)
         {
-             _db = db;
+            _db = db;
             _userManager = userManager;
             _logger = logger;
             this._hostEnvironment = hostEnviroment;
@@ -30,14 +30,14 @@ namespace Kid_PalaceA2.Controllers
 
         public List<ToyModel> LatestArrival()
         {
-            var latesttoys = _db.Products2.Where(x=>x.IsDeleted==false).OrderByDescending(x => x.Id).Take(12).ToList();
+            var latesttoys = _db.Products2.Where(x => x.IsDeleted == false).OrderByDescending(x => x.Id).Take(12).ToList();
 
             return (latesttoys);
         }
         public IActionResult Index()
         {
             HomeViewdata viewdata = new HomeViewdata();
-           
+
             viewdata.LatestProduct = LatestArrival();
 
             //if (User.Identity.IsAuthenticated)
@@ -48,15 +48,15 @@ namespace Kid_PalaceA2.Controllers
             //        return RedirectToAction("AdminDashboard");
             //    }
             //}
-            return View(viewdata) ;
+            return View(viewdata);
 
         }
 
         public IActionResult AdminDashboard()
         {
             var totalprdcts = _db.Products2.ToList();
-            var sales = _db.Orders.Where(x => x.Orderstatus=="Completed").ToList();
-            var dilivery = _db.Orders.Where(x => x.Orderstatus=="Processing").ToList();
+            var sales = _db.Orders.Where(x => x.Orderstatus == "Completed").ToList();
+            var dilivery = _db.Orders.Where(x => x.Orderstatus == "Processing").ToList();
             var pendingorder = _db.Orders.Include(n => n.OrderItems).Where(n => n.Orderstatus.Equals("Pending")).ToList();
 
             AdminViewmodel obj = new AdminViewmodel();
@@ -79,7 +79,7 @@ namespace Kid_PalaceA2.Controllers
         {
             return View();
         }
-    
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

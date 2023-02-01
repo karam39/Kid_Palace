@@ -32,14 +32,16 @@ namespace Kid_PalaceA2.Controllers
 
         public async Task<IActionResult> Index()
         {
-            string b = User.Identity.Name.ToString();
-
-            if ((b.Split('@')[0]) == "Admin786")
+            if (User.Identity.IsAuthenticated)
             {
-                var orderss = await _ordersService.GetOrders();
-                return View(orderss);
-            }
+                string b = User.Identity.Name.ToString();
 
+                if ((b.Split('@')[0]) == "Admin786")
+                {
+                    var orderss = await _ordersService.GetOrders();
+                    return View(orderss);
+                }
+            }
 
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
@@ -120,18 +122,18 @@ namespace Kid_PalaceA2.Controllers
             List<RecievingAddress> list = new List<RecievingAddress>();
             list.Add(obj);
             var items = _shoppingCart.GetShoppingCartItems();
-          
+
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             var items2 = list;
-         
+
 
             if (User.Identity.IsAuthenticated)
             {
                 string userEmailAddress = User.Identity.Name.ToString();
 
-                await _ordersService.StoreOrderAsync(items,items2, userId, userEmailAddress);
-               
+                await _ordersService.StoreOrderAsync(items, items2, userId, userEmailAddress);
+
             }
             //else
             //{
@@ -144,7 +146,7 @@ namespace Kid_PalaceA2.Controllers
 
             //}
             await _shoppingCart.ClearShoppingCartAsync();
-           
+
             return View("OrderStatusMessageshow");
         }
 
@@ -158,40 +160,43 @@ namespace Kid_PalaceA2.Controllers
         new Order() { OrderstatusID = 3, Orderstatus = "Completed"} ,
         new Order() { OrderstatusID = 4, Orderstatus = "Cancelled"}
     };
-            string b = User.Identity.Name.ToString();
-            if ((b.Split('@')[0]) == "Admin786")
+            if (User.Identity.IsAuthenticated)
             {
-
-                var result2 = _db.Orders.SingleOrDefault(b => b.Id == Id);
-                if (result2 != null)
+                string b = User.Identity.Name.ToString();
+                if ((b.Split('@')[0]) == "Admin786")
                 {
-                    
-                    var re = Orderstatuslist.Where(s => s.OrderstatusID == status).Select(s => s.Orderstatus.ToString()).FirstOrDefault();
-                    if (result2.Orderstatus == "Cancelled")
+
+                    var result2 = _db.Orders.SingleOrDefault(b => b.Id == Id);
+                    if (result2 != null)
                     {
-                        if(re!= "Cancelled")
+
+                        var re = Orderstatuslist.Where(s => s.OrderstatusID == status).Select(s => s.Orderstatus.ToString()).FirstOrDefault();
+                        if (result2.Orderstatus == "Cancelled")
                         {
-                            PrdquantitymanageforOther(Id);
+                            if (re != "Cancelled")
+                            {
+                                PrdquantitymanageforOther(Id);
+                            }
                         }
-                    }
-                    if (re == "Cancelled")
-                    {
-                        PrdquantitymanageforCancel(Id);
-                    }
-                    
+                        if (re == "Cancelled")
+                        {
+                            PrdquantitymanageforCancel(Id);
+                        }
 
-                    result2.Orderstatus = re;
 
-                    _db.SaveChanges();
+                        result2.Orderstatus = re;
+
+                        _db.SaveChanges();
+                    }
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
             }
             var result = _db.Orders.SingleOrDefault(b => b.Id == Id);
             if (result != null)
             {
                 result.Orderstatus = "Cancelled";
                 _db.SaveChanges();
-                PrdquantitymanageforCancel( Id);
+                PrdquantitymanageforCancel(Id);
             }
             return RedirectToAction("Index");
 
@@ -206,33 +211,36 @@ namespace Kid_PalaceA2.Controllers
         new Order() { OrderstatusID = 3, Orderstatus = "Completed"} ,
         new Order() { OrderstatusID = 4, Orderstatus = "Cancelled"}
     };
-            string b = User.Identity.Name.ToString();
-            if ((b.Split('@')[0]) == "Admin786")
+            if (User.Identity.IsAuthenticated)
             {
-
-                var result2 = _db.Orders.SingleOrDefault(b => b.Id == Id);
-                if (result2 != null)
+                string b = User.Identity.Name.ToString();
+                if ((b.Split('@')[0]) == "Admin786")
                 {
 
-                    var re = Orderstatuslist.Where(s => s.OrderstatusID == status).Select(s => s.Orderstatus.ToString()).FirstOrDefault();
-                    if (result2.Orderstatus == "Cancelled")
+                    var result2 = _db.Orders.SingleOrDefault(b => b.Id == Id);
+                    if (result2 != null)
                     {
-                        if (re != "Cancelled")
+
+                        var re = Orderstatuslist.Where(s => s.OrderstatusID == status).Select(s => s.Orderstatus.ToString()).FirstOrDefault();
+                        if (result2.Orderstatus == "Cancelled")
                         {
-                            PrdquantitymanageforOther(Id);
+                            if (re != "Cancelled")
+                            {
+                                PrdquantitymanageforOther(Id);
+                            }
                         }
+                        if (re == "Cancelled")
+                        {
+                            PrdquantitymanageforCancel(Id);
+                        }
+
+
+                        result2.Orderstatus = re;
+
+                        _db.SaveChanges();
                     }
-                    if (re == "Cancelled")
-                    {
-                        PrdquantitymanageforCancel(Id);
-                    }
-
-
-                    result2.Orderstatus = re;
-
-                    _db.SaveChanges();
+                    return RedirectToAction("AdminDashboard", "Home");
                 }
-                return RedirectToAction("AdminDashboard", "Home");
             }
             var result = _db.Orders.SingleOrDefault(b => b.Id == Id);
             if (result != null)
@@ -281,19 +289,19 @@ namespace Kid_PalaceA2.Controllers
         {
             var orderss = await _ordersService.GetOrdersByOrderidAsync(Id);
             var address = await _ordersService.GetAddressByUserIdAsync(Id);
-            
-            var date =  _db.Orders.Where(x => x.Id == Id).ToList();
+
+            var date = _db.Orders.Where(x => x.Id == Id).ToList();
             Orderviewdata orderviewdata = new Orderviewdata();
             foreach (var d in date)
             {
                 orderviewdata.orderdate = d.Date;
             }
-            
+
             orderviewdata.Address = address.ToList();
             orderviewdata.Orderr = orderss.ToList();
 
             return View(orderviewdata);
-                
+
         }
         public IActionResult CustomerAddress()
         {

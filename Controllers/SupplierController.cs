@@ -22,12 +22,12 @@ namespace Kid_PalaceA2.Controllers
 
         public IActionResult showSupplierDetail()
         {
-            var a = _db.SupplierDetails.Where(x=>x.IsDeleted.Equals(false)).ToList();
-        
+            var a = _db.SupplierDetails.Where(x => x.IsDeleted.Equals(false)).ToList();
+
             return View(a);
 
         }
-        
+
         public IActionResult SupplierCreate(SupplierDetail obj)
         {
             return View(obj);
@@ -63,11 +63,11 @@ namespace Kid_PalaceA2.Controllers
             var obj = _db.SupplierDetails.Find(id);
             if (obj != null)
             {
-                obj.IsDeleted=true;
+                obj.IsDeleted = true;
                 _db.SaveChanges();
             }
             return RedirectToAction("showSupplierDetail");
         }
-     
+
     }
 }

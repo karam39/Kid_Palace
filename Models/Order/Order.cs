@@ -22,9 +22,9 @@ namespace Kid_PalaceA2.Models
         public List<OrderItem> OrderItems { get; set; }
 
         public string Orderstatus { get; set; }
-       [NotMapped]
+        [NotMapped]
         public int OrderstatusID { get; set; }
 
-      
+
     }
 }

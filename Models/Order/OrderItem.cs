@@ -14,11 +14,11 @@ namespace Kid_PalaceA2.Models
         [Key]
         public int Id { get; set; }
 
-        public int Quantity { get; set; }      
+        public int Quantity { get; set; }
         public double Price { get; set; }
         public string ToyImg { get; set; }
         public string ToyName { get; set; }
-      
+
         //[ForeignKey("ToyModel")]
         public int ToyModelId { get; set; }
         //public ToyModel ToyModel { get; set; }

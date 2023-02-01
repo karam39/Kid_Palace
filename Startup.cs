@@ -31,7 +31,7 @@ namespace Kid_PalaceA2
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-           
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -43,7 +43,7 @@ namespace Kid_PalaceA2
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCartService.GetShoppingCart(sc));
-          
+
             services.AddSession();
             services.AddControllersWithViews();
 

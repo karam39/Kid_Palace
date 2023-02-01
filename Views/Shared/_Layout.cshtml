@@ -21,13 +21,13 @@
             </div>-->
         <!-- *** TOP BAR END ***-->
         <!--</div>-->
-        
+
         <div id='outer'>
             <div id='logo' class='container'>
                 <img class="col-md-4 img-fluid web-logo order-0" src="~/img/toy.png" />
                 <div>
                     @*<input class='col-md-6 col-10 order-1' type='text' placeholder='Search ' />
-            <FaSearch class='icon' />*@
+                        <FaSearch class='icon' />*@
                     <form asp-area="" asp-controller="Product" asp-action="Products">
 
                         <!--<input class='col-md-6 col-10 order-1' type="text" name="SearchString" />-->
@@ -41,7 +41,7 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Search Product" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary bg-success start-button"  type="button">Search</button>
+                                <button class="btn btn-outline-secondary bg-success start-button" type="button">Search</button>
                             </div>
                         </div>
                     </form>
@@ -53,11 +53,11 @@
                     </span>
                 </a>
                 @*<a asp-area="" asp-controller="Orders" asp-action="ShoppingCart">
-                    <img src="~/img/Cart.png" class='img-fluid cart-img mt-5 order-0' />
-                    <span class="cart-basket d-flex align-items-center justify-content-center">
-                        @await Component.InvokeAsync("ShoppingCartSummary")
-                    </span>
-                </a>*@
+                        <img src="~/img/Cart.png" class='img-fluid cart-img mt-5 order-0' />
+                        <span class="cart-basket d-flex align-items-center justify-content-center">
+                            @await Component.InvokeAsync("ShoppingCartSummary")
+                        </span>
+                    </a>*@
 
             </div>
             <!-- Example single danger button -->
@@ -72,7 +72,7 @@
                     string b = User.Identity.Name.ToString();
                     if ((b.Split('@')[0]) == "Admin786")
                     {
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AdminDashboard">Administration</a>}
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AdminDashboard">Administration</a>}
                 }
             </div>
             <div class="container">

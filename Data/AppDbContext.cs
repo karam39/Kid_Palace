@@ -17,7 +17,7 @@ namespace Kid_PalaceA2.Models
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
-            _options = options; 
+            _options = options;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,9 +29,9 @@ namespace Kid_PalaceA2.Models
         public DbSet<ProductCatagory> ProductCategory { get; set; }
         public DbSet<SupplierDetail> SupplierDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
-       public DbSet<OrderItem> OrderItems { get; set; }
-       public DbSet<RecievingAddress> RecievingAddresses { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<RecievingAddress> RecievingAddresses { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-    
+
     }
 }
